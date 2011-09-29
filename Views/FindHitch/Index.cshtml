@@ -1,0 +1,23 @@
+﻿@using eLocal.Models;
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    eLocal.Company company = ViewBag.company;
+    if(company.companyID == null){
+        company = new eLocal.Company();
+    }
+    eLocal.Location primary_location = ViewBag.primary_location;
+    
+}
+<link rel="Stylesheet" media="all" href="@Url.Content("~/Content/part_results.css")" type="text/css" />
+
+@if (ViewBag.error != null && ViewBag.error.Length > 0) {
+    <p style="color:Red">@ViewBag.error</p>
+}
+
+<!-- Display the searched vehicle string -->
+<h4 style="margin-top: 0px; border-bottom: 1px solid #343434">@ViewBag.year @ViewBag.make @ViewBag.model @ViewBag.style</h4>
+
+@{
+    Html.RenderPartial("PartListing");
+}

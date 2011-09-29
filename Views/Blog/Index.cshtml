@@ -1,0 +1,47 @@
+﻿@{
+    List<eLocal.Models.PostWithCategories> posts = ViewBag.posts;
+    ViewBag.Title = "Blog";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    int pagecount = ViewBag.pagecount;
+    int page = ViewBag.page;
+        
+}
+
+<h2>Blog</h2>
+<section id="blog">
+    @foreach (eLocal.Models.PostWithCategories post in posts) {
+        <article class="post" id="post_@post.postID">
+            <header>
+                <h3><a href="/Blog/Post/@String.Format("{0:M-dd-yyyy}",post.publishedDate)/@Url.Encode(post.SiteContent.page_title)">@post.SiteContent.page_title</a></h3>
+                <p class="byline">
+                    By 
+                    @if (post.author.email != "") {
+                        <a href="mailto:@post.author.email">@post.author.first_name @post.author.last_name</a>
+                    } else {
+                        @post.author.first_name @post.author.last_name
+                    }
+                    <span>@String.Format("{0:MMMM d, yyyy} at {0:h:mm tt}",post.publishedDate)</span>
+                </p>
+            </header>
+            @if (post.SiteContent.content_text.Length > 400) {
+                @Html.Raw(post.SiteContent.content_text.Substring(0,399) + "... <a class=\"readmore\" href=\"/Blog/Post/" + @String.Format("{0:M-dd-yyyy}", post.publishedDate) + "/" + @Url.Encode(post.SiteContent.page_title) + "/\">Read More</a>")
+            } else {
+                @Html.Raw(post.SiteContent.content_text)
+            }
+            <footer>
+                <p>@post.comments.Count() Comment@((post.comments.Count() != 1) ? "s" : "") <a href="/Blog/Post/@String.Format("{0:M-dd-yyyy}", post.publishedDate)/@Url.Encode(post.SiteContent.page_title)/#comments">Add a Comment</a></p>
+            </footer>
+        </article>
+    }
+    <footer id="pagination">
+        @if (page > 1 && pagecount > 1) {
+            //Previous page link
+            <a id="prevpage" href="/Blog/page/@(page - 1)">&lt; Prev</a>
+        }
+        <span id="pagecount">Page @page of @pagecount</span>
+        @if (pagecount > 1 && page != pagecount) {
+            //Next page link
+            <a id="nextpage" href="/Blog/page/@(page + 1)">Next &gt;</a>
+        }
+    </footer>
+</section>

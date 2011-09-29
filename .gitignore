@@ -1,0 +1,10 @@
+*.config
+bin/*
+obj/*
+Properties/*
+eLocal.dbml
+eLocal.dbml.layout
+eLocal.designer.cs
+*.xml
+App_Data/*
+*.csproj

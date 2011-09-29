@@ -1,0 +1,139 @@
+﻿#locations_json{ display: none; }
+
+#map{
+    width: 100%;
+    height: 400px;
+    border: 1px solid #343434;
+    border-radius: 4px;
+}
+
+.location{
+    min-height: 150px;
+    width: 100%;
+    border-bottom: 2px solid #e6e6e6;
+    padding: 15px 10px;
+    cursor:pointer;
+    position: relative;
+}
+
+.location:hover{
+    background: #e6e6e6;
+}
+
+.location .location_name{
+    font-size: 18px;
+    font-weight: bold;
+    display: block;
+}
+
+.location .contact{
+    float:left;
+    width: 44%;
+    margin-right: 5%;
+    font-size: 12px;
+    font-weight: normal;
+    margin-top: 10px;
+    padding-left: 10px;
+}
+
+.location .contact span{
+    display: block;
+}
+
+.location .services{
+    float:left;
+    width: 44%;
+}
+
+.location .services_table{
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.location .services_table thead th{
+    font-weight: bold;
+    font-size:18px;
+    border-bottom: 1px solid #343434;
+}
+
+.location .services_table tbody tr:first-child td{
+    padding-top: 5px;
+}
+
+.location .services_table tbody td{
+    font-size: 14px;
+}
+
+.location .services_table tbody tr td:first-child{
+    font-weight: bold;
+}
+
+.location .services_table tbody tr td:last-child{
+    font-size: 10px;
+}
+
+.location .directions{
+    text-decoration: none;
+    color: #343434;
+    display: block;
+    position: absolute;
+    bottom: 2%;
+    right:2%;
+    font-size: 12px;
+    display: none;
+    padding: 0px 8px;
+}
+
+#direction_template{ display: none; }
+
+.direction_form{
+    padding-top: 20px;
+    clear: both;
+    display: none;
+}
+
+.direction_form label{
+    display: block;
+    clear:right;
+    line-height: 35px;
+    height: 55px;
+    margin-bottom: 10px;
+    font-weight: bold;
+    position: relative;
+}
+
+.direction_form input[type=text]{
+    width: 400px;
+    height: 35px;
+}
+
+.direction_form input[type=text], select{
+    line-height: 30px;
+    padding: 2.5px;
+    border-radius: 3px 3px 3px;
+    border: 2px inset #ccc;
+    position: absolute;
+    left: 150px;
+    color: #343434;
+}
+
+.direction_form inut[type=submit]{
+    display: block;
+}
+
+.location .view_on_map{
+    text-decoration: none;
+    color: #343434;
+    display: block;
+    position: absolute;
+    bottom: 2%;
+    right:17%;
+    font-size: 12px;
+    display: none;
+    padding: 0px 8px;
+    border-right: 1px solid #999;
+}
+
+.location .directions:hover, .location .view_on_map:hover{
+    text-decoration: underline;
+}

@@ -1,0 +1,417 @@
+﻿@{
+    string openul = "<ul>";
+    string openli = "<li class=\"year\">";
+    string closeul = "</ul>";
+    string closeli = "</li>";
+    List<eLocal.Models.Category> cats = ViewBag.cats;
+    List<string> links = ViewBag.links;
+    if (links == null) {
+        links = new List<string>();
+    }
+    List<eLocal.Banner> left_banners = ViewBag.left_banners;
+    List<eLocal.Banner> right_banners = ViewBag.right_banners;
+    List<eLocal.Category> right_categories = ViewBag.categories;
+    List<eLocal.Models.Archive> months = ViewBag.months;
+    bool hide_sidebar = false;
+    if (ViewBag.hide_sidebar != null) {
+        hide_sidebar = ViewBag.hide_sidebar;
+    }
+    eLocal.Company company = ViewBag.company;
+    if (company == null) {
+        company = new eLocal.Company();
+    }
+    List<eLocal.Models.APIPart> recent_parts = ViewBag.recent_parts;
+    if (recent_parts == null) {
+        recent_parts = new List<eLocal.Models.APIPart>();
+    } else {
+        recent_parts = recent_parts.Reverse<eLocal.Models.APIPart>().ToList<eLocal.Models.APIPart>();
+    }
+    string vehicle_year = ViewBag.vehicleYear;
+    if (vehicle_year == null) {
+        vehicle_year = "";
+    }
+
+    string vehicle_make = ViewBag.vehicleMake;
+    if (vehicle_make == null) {
+        vehicle_make = "";
+    }
+
+    string vehicle_model = ViewBag.vehicleModel;
+    if (vehicle_model == null) {
+        vehicle_model = "";
+    }
+
+    string vehicle_style = ViewBag.vehicleStyle;
+    if (vehicle_style == null) {
+        vehicle_style = "";
+    }
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="keywords" content="@ViewBag.keywords" />
+    @if (ViewBag.metadescription != null && ViewBag.metadescription != "") {
+        <meta name="description" content="@ViewBag.metadescription" />
+    }
+    <meta name="keywords" content="@ViewBag.keywords" />
+    <title>@(company.name + " :: " + ViewBag.Title)</title>
+
+    <link href="@Url.Content("~/Content/light_layout.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/tabs.css")" rel="stylesheet" type="text/css" />
+    <!--link href='http://fonts.googleapis.com/css?family=Cantarell:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'-->
+    <!--link href='http://fonts.googleapis.com/css?family=Ubuntu:regular,500,bold' rel='stylesheet' type='text/css'-->
+    <link href="http://fast.fonts.com/cssapi/bf0da900-680d-4c46-88a3-85c585868486.css" rel="stylesheet" type="text/css" />
+    <link href="/Content/themes/base/jquery.ui.all.css" rel="stylesheet" type="text/css" />
+    <link href="/Content/DataTables-1.8.1/media/css/demo_table.css" rel="stylesheet" type="text/css" />
+
+    <link rel="shortcut icon" href="http://localhost:2808/Content/img/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="http://localhost:2808/Content/img/favicon.ico" type="image/x-icon">
+
+
+    <script src="/Scripts/jquery-1.6.2.min.js" type="text/javascript"></script>
+    <script src="/Scripts/easing.js" type="text/javascript"></script>
+    <script src="/Scripts/modernizr-2.0.6-development-only.js" type="text/javascript"></script>
+    <script src="/Scripts/DataTables-1.8.1/media/js/jquery.dataTables.min.js" type="text/javascript"></script>
+    <script src="/Scripts/custom/archivemenu.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        'article aside footer header nav section time'.replace(/\w+/g, function (n) { document.createElement(n) })
+    </script>
+
+    <!--[if lt IE 9]>
+        <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/IE8.css")" />
+    <![endif]-->
+    <!--[if lt IE 8]>
+        <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/IE7.css")" />
+    <![endif]-->
+    <!-- NOT SUPPORTING IE6 -->
+</head>
+
+<body>
+    <!-- Site Header -->
+    <header id="header">
+        <div id="header_container">
+            <!-- Logo & Tagline -->
+            <a href="/" title="Home" id="logo">
+                <img src="/Content/img/uploaded/@company.logo_image" alt="@company.name" /><br />
+                <span><em>@company.tagline</em></span>
+            </a>
+
+            <div id="search_social">
+
+                <!-- Search Area -->
+                <form action="@Url.Content("~/Search")" method="post" id="search_form">
+                    <input type="text" name="search_term" id="search_term" placeholder="Search" required="required" />
+                    <input type="submit" name="btnSearch" id="btnSearch" value="" />
+                </form>
+                <div style="clear:both"></div>
+                <div id="social_links">
+                    @if (company.facebook_link != null && company.facebook_link.Length > 0) {
+                        <a href="@company.facebook_link" title="Facebook" target="_blank">
+                            <img src="@Url.Content("~/Content/img/social_icons/facebook.png")" alt="@company.name Facebook" />
+                        </a>
+                    }
+                    @if (company.twitter_link != null && company.twitter_link.Length > 0) {
+                        <a href="@company.twitter_link" title="Twitter" target="_blank">
+                            <img src="@Url.Content("~/Content/img/social_icons/twitter.png")" alt="@company.name Twitter" />
+                        </a>
+                    }
+                    @if (company.youtube_link != null && company.youtube_link.Length > 0) {
+                        <a href="@company.youtube_link" title="YouTube" target="_blank">
+                            <img src="@Url.Content("~/Content/img/social_icons/youtube.png")" alt="@company.name YouTube" />
+                        </a>
+                    }
+                </div>
+                <a href="http://www.curtmfg.com" title="CURT Manufacturing, LLC." target="_blank" id="authorized_dealer">
+                    <img src="@Url.Content("~/Content/img/authorized_dealer.png")" alt="Authorized CURT Dealer" />
+                </a>
+            </div>
+        </div>
+        <div style="clear:both"></div>
+        <div>
+            <nav>
+                <ul id="hor_nav">
+                    <li><a href="@Url.Content("~/")" title="Home" data-title="Home">Home</a></li>
+                    <li><a href="@Url.Content("~/About")" title="About Us">About</a></li>
+                    <li><a href="@Url.Content("~/Contact")" title="Contact Us">Contact</a></li>
+                    <li><a href="@Url.Content("~/Locator")" title="Find a Location">Locator</a></li>
+                    <li><a href="@Url.Content("~/FAQ")" title="Frequently Asked Questions">FAQ</a></li>
+                    <li><a href="@Url.Content("~/Services")" title="Our Services">Our Services</a></li>
+                </ul>
+            </nav>
+            <!--div id="outer_graphical_bar"></div-->
+            <div id="inner_graphical_bar">
+                @if (company.homepage_lookup == 1) {
+                    <form method="post" action="@Url.Content("~/FindHitch")" id="hor_lookup">
+                        <div id="lookup_fields">
+                            <div style="display:inline;">
+                                <select id="select_year" name="select_year" class="chzn-select" title="Select Year">
+                                    <option value="0">- Select Year -</option>
+                                    @if (ViewBag.years != null) {
+                                        foreach (string year in ViewBag.years) {
+                                            <option @((ViewBag.currentYear != null && ViewBag.currentYear == Convert.ToDouble(year)) ? "selected='selected'" : "")>@year</option>
+                                        }
+                                    }
+                                </select>
+                                <input type="submit" name="getMake" id="getMake" value="View Makes" style="@((ViewBag.currentYear != null && ViewBag.currentYear > 0) ? "display:none" : "")" />
+                                <select id="select_make" name="select_make" class="chzn-select" style="display:@((ViewBag.makes != null) ? "inline" : "none")">
+                                    <option value="0">- Select Make -</option>
+                                    @if (ViewBag.makes != null) {
+                                        foreach (string make in ViewBag.makes) {
+                                            <option @((ViewBag.currentMake == make) ? "selected='selected'" : "")>@make</option>
+                                        }
+                                    }
+                                </select>
+                                <input type="submit" name="getModel" id="getModel" value="View Models" style="display:@((ViewBag.getModels != null) ? "inline" : "none")" />
+                                <select id="select_model" name="select_model" class="chzn-select" style="display:@((ViewBag.models != null) ? "inline" : "none")">
+                                    <option value="0">- Select Model -</option>
+                                    @if (ViewBag.models != null) {
+                                        foreach (string vModel in ViewBag.models) {
+                                            <option @((ViewBag.currentModel == vModel) ? "selected='selected'" : "")>@vModel</option>
+                                        }
+                                    }
+                                </select>
+                                <input type="submit" name="getStyle" id="getStyle" value="View Styles" style="display:@((ViewBag.getStyles != null) ? "inline" : "none")" />
+                                <select id="select_style" name="select_style" class="chzn-select" style="display:@((ViewBag.styles != null) ? "inline" : "none")">
+                                    <option value="0">- Select Style -</option>
+                                    @if (ViewBag.styles != null) {
+                                        foreach (string style in ViewBag.styles) {
+                                            <option>@style</option>
+                                        }
+                                    }
+                                </select>
+                            </div>
+                            <div id="lookup_links">
+                                <input type="submit" name="getHitch" id="getHitch" value="Find Hitch" style="display:@((ViewBag.styles != null) ? "inline" : "none")" />
+                                <a href="@HttpContext.Current.Request.Url.AbsoluteUri" id="resetLookup" title="Reset Lookup">Reset Lookup</a>
+                            </div>
+                        </div>
+                        <div style="clear:both"></div>
+                    </form>
+                }
+            </div>
+        </div>
+    </header>
+    <!-- Print View Content -->
+    <section id="container">
+        <div id="left_container">
+            @if (cats != null && cats.Count > 0) {
+                <article id="category_listing">
+                    <span class="section_header">
+                        &gt;&nbsp;Categories
+                    </span>
+                    <ul class="cat">
+                        @foreach (eLocal.Models.Category cat in cats) {
+                            if (cat.catTitle.ToUpper() != "HITCHES") {
+                                <li class="parent_cat">
+                                   <a href="@Url.Content("~/Category/Index/" + cat.catID)" class="cat_link">
+                                
+                                    @cat.catTitle
+                                   </a>
+                                   @if (cat.sub_categories.Count > 0) {
+                                       <ul class="cat sub_cat">
+                                            @foreach (eLocal.Models.Category sub_cat in cat.sub_categories) {
+                                                <li>
+                                                    <a href="@Url.Content("~/Category/Index/" + sub_cat.catID)">@sub_cat.catTitle</a>
+                                                    @if (sub_cat.sub_categories.Count > 0) {
+                                                       <ul class="cat sub_cat">
+                                                            @foreach (eLocal.Models.Category sub_cat2 in sub_cat.sub_categories) {
+                                                                <li>
+                                                                    <a href="@Url.Content("~/Category/Index/" + sub_cat2.catID)">@sub_cat2.catTitle</a>
+                                                                </li>
+                                                            }
+                                                       </ul>
+                                                    }
+                                                </li>
+                                            }
+                                       </ul>
+                                   }
+                                </li>
+                            }
+                        }
+                    </ul>
+                </article>
+            }
+            <article id="links">
+                <span class="section_header">&gt;&nbsp;Links</span>
+                <ul>
+                    <li>
+                        <a href="/Media" title="CURT Videos">CURT Videos</a>
+                    </li>
+                    @if (ViewBag.video_count != null && ViewBag.video_count > 0) {
+                        <li>
+                            <a href="/Media/OurVideos" title="Our Videos">Our Videos</a>
+                        </li>
+                    }
+                    @if (ViewBag.test_count != null && ViewBag.test_count > 0) {
+                        <li>
+                            <a href="/Testimonials" title="Testimonials">Testimonials</a>
+                        </li>
+                    }
+                    @if (ViewBag.gallery_count != null && ViewBag.gallery_count > 0) {
+                        <li>
+                            <a href="/Media/PhotoGallery" title="Photo Gallery">Photo Gallery</a>
+                        </li>
+                    }
+                    @foreach (string link in links) {
+                        <li>
+                            <a href="/Render?page=@link" title="@link">@link</a>
+                        </li>
+                    }
+                    <li>
+                        <a href="/Blog" title="Blog">Blog</a>
+                    </li>
+                </ul>
+            </article>
+            
+            @if (left_banners != null && left_banners.Count > 0) {
+                foreach (eLocal.Banner banner in left_banners) {
+                    if (banner.link.Length == 0) {
+                        <span class="banner">
+                            <img src="/Content/img/uploaded/@banner.path" title="@banner.title" />
+                        </span>
+                    } else {
+                        <a href="@banner.link" title="@banner.title" class="banner">
+                            <img src="/Content/img/uploaded/@banner.path" title="@banner.title" />
+                        </a>
+                    }
+                }
+            }
+        </div>
+
+        <article id="view_content">
+            
+            
+            @if (!hide_sidebar) {
+                <div id="main_content" style="width: 630px;">
+                    @RenderBody()
+                </div>
+                <div id="content_sidebar">
+                    @if (vehicle_year.Length > 0 && vehicle_make.Length > 0 && vehicle_model.Length > 0 && vehicle_style.Length > 0) {
+                        <div class="stored_vehicle">
+                            <span class="section_header">&gt;&nbsp;Your Vehicle</span>
+                            <span class="key">Year</span>
+                            <span class="your_year">@ViewBag.vehicleYear</span>
+                            <span class="key">Make</span>
+                            <span class="your_make">@ViewBag.vehicleMake</span>
+                            <span class="key">Model</span>
+                            <span class="your_model">@ViewBag.vehicleModel</span>
+                            <span class="key">Style</span>
+                            <span class="your_style">@ViewBag.vehicleStyle</span>
+                            <a href="/FindHitch/Index?year=@HttpUtility.UrlPathEncode(ViewBag.vehicleYear)&make=@HttpUtility.UrlPathEncode(ViewBag.vehicleMake.Replace("/", "%2F").Replace("&", "%26"))&model=@HttpUtility.UrlPathEncode(ViewBag.vehicleModel.Replace("/", "%2F").Replace("&", "%26"))&style=@HttpUtility.UrlPathEncode(ViewBag.vehicleStyle.Replace("/","%2F").Replace("&","%26"))" title="View Vehicle Parts">&gt;&nbsp;View Parts</a>
+                        </div>
+                    }
+                    @RenderSection("sidebar", false)
+                    @if (recent_parts.Count > 0) {
+                        <div class="recent_parts">
+                            <span class="section_header" style="font-size:12px">&gt;&nbsp;Recently Viewed</span>
+                        @foreach (eLocal.Models.APIPart recent_part in recent_parts) {
+                            <a class="recent_part" href="/Part/@recent_part.partID" title="View Part #@recent_part.partID">
+                                <img src="http://graphics.curthitch.biz/masterlibrary/@recent_part.partID/images/@(recent_part.partID)_100x75_a.jpg" src="Part #@recent_part.partID" />
+                                @recent_part.shortDesc
+                            </a>
+                        }
+                        </div>
+                    }
+                    @if (right_categories != null && right_categories.Count > 0) {
+                        <ul class="categories">
+                            <li>&gt; Blog Categories</li>
+                            @foreach (eLocal.Category category in right_categories) {
+                                <li>
+                                    <a href="/Blog/Category/@Server.UrlEncode(category.name)">@category.name</a>
+                                </li>
+                            }
+                        </ul>
+                    }
+                    @if (months != null && months.Count > 0) {
+                        <ul class="archive">
+                            <li>&gt; Archives</li>
+                            @for (var i = 0; i < months.Count(); i++) {
+                                if (i != 0 && months[i - 1].year != months[i].year) {
+                                    @Html.Raw(closeul)
+                                    @Html.Raw(closeli)
+                                    @Html.Raw(openli)
+                                    <a class="yearlink" href="javascript:;">@months[i].year</a>
+                                    @Html.Raw(openul)
+                                } else if (i == 0) {
+                                    @Html.Raw(openli)
+                                    <a class="yearlink" href="javascript:;">@months[i].year</a>
+                                    @Html.Raw(openul)
+                                }
+                                <li class="month">
+                                    <a href="/Blog/Archive/@String.Format("{0:MMMM}", Convert.ToDateTime(months[i].month + "/1/" + months[i].year))/@(months[i].year)">@String.Format("{0:MMMM}", Convert.ToDateTime(months[i].month + "/1/" + months[i].year))</a>
+                                </li>
+                            }
+                            @Html.Raw(closeul)
+                            @Html.Raw(closeli)
+                        </ul>
+                    }
+                    @if (right_banners != null && right_banners.Count > 0) {
+                        foreach (eLocal.Banner banner in right_banners) {
+                            if (banner.link.Length == 0) {
+                                <span class="banner">
+                                    <img src="/Content/img/uploaded/@banner.path" title="@banner.title" />
+                                </span>
+                            } else {
+                                <a href="@banner.link" title="@banner.title" class="banner">
+                                    <img src="/Content/img/uploaded/@banner.path" title="@banner.title" />
+                                </a>
+                            }
+                        }
+                    }
+                    <div style="margin: auto;text-align:center">
+                        @if (company.adwords != null && company.adwords.Length > 0) {
+                            <div>
+                                @Html.Raw(company.adwords.Replace("&lt;", "<").Replace("&gt;", ">"))
+                            </div>
+                        }
+                    </div>
+                </div>
+            } else {
+                <div id="main_content" style="width: 782px;">
+                    @RenderBody()
+                </div>
+            }
+        </article>
+        <div style="clear:both"></div>
+    </section>
+
+    <footer id="footer">
+        <img src="@Url.Content("/Content/img/hor_shadow.png")" style="width:80%;margin:auto" alt="Horizontal Shadow" />
+        <div id="footer_copyright">
+            <p>Copyright &copy; @DateTime.Now.Year @company.name</p>
+            <hr style="width:45%;border: 1px dotted #343434" />
+            @if (eLocal.Models.CompanyModel.GetPage("Returns")) {<a href="/Render?page=Returns" title="Return Policy">Return Policy</a>}
+            @if (eLocal.Models.CompanyModel.GetPage("Warranty")) {<a href="/Render?page=Warranty" title="Warranty">Warranty</a>}
+            @if (eLocal.Models.CompanyModel.GetPage("Shipping")) {<a href="/Render?page=Shipping" title="Shipping Policy">Shipping Policy</a>}
+            
+        </div>
+    </footer>
+
+    <!-- Error Message Container -->
+    <div id="message_box">
+        <span>@((ViewBag.error != null) ? ViewBag.error : "")</span>
+    </div>
+
+    @if (company.merchant_provider == "google" && company.merchant_id.Length > 0) {
+
+    }
+    
+    @if (company.analytics_id != null && company.analytics_id.Length > 0) {
+        <script type="text/javascript">
+            var _gaq = _gaq || [];
+            _gaq.push(['_setAccount', '@(company.analytics_id)']);
+            _gaq.push(['_trackPageview']);
+
+            (function () {
+                var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+                ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+                var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+            })();
+        </script>
+    }
+    <script type="text/javascript" src="@Url.Content("~/Scripts/custom/index_expanding_menu.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/custom/hitch_lookup.js")"></script>
+</body>
+</html>

@@ -1,0 +1,48 @@
+﻿.service{
+    width: 90%;
+    margin: auto;
+    min-height: 100px;
+    border-bottom: 1px solid #e6e6e6;
+    padding: 15px;
+}
+
+.service:hover{
+    background: #e6e6e6;
+}
+
+.service:last-child{
+    border-bottom: none;
+}
+
+.service .title{
+    font-size: 24px;
+    font-weight:bold;
+}
+
+.service .price{
+    float:right;
+    font-size: 18px;
+    font-weight: bold;
+    color: #e64f31;
+}
+
+.service p{
+    font-size: 12px;
+    width: 80%;
+    float:left;
+    padding-top: 10px;
+    margin-top: 0px;
+}
+
+.service a{
+    float:right;
+    font-size: 12px;
+    padding-top: 10px;
+    color: #343434;
+    text-decoration: none;
+}
+
+.service a:hover{
+    color: #e64f31;
+    text-decoration: underline;
+}

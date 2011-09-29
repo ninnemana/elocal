@@ -1,0 +1,7 @@
+﻿@{
+    eLocal.SiteContent content = ViewBag.content;
+    ViewBag.keywords = content.keywords;
+    ViewBag.Title = content.page_title;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@Html.Raw(content.content_text)

@@ -1,0 +1,35 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    eLocal.Models.Category category = ViewBag.category;
+}
+<link href="/Content/products_categories.css" rel="stylesheet" type="text/css" />
+<div>
+    <h2>@category.catTitle</h2>
+    @if (eLocal.Models.APIModels.FileExists(@category.image)) {
+        <img src="@category.image" id="category_image" />
+    }
+
+    @if (category.shortDesc.Length > 0) {
+        <p>@category.shortDesc</p>
+    }
+
+    @if (category.longDesc.Length > 0) {
+        <p>@category.longDesc</p>
+    }
+    
+    <div style="clear:both"></div>
+    @if (category.sub_categories.Count > 0) {
+        <h4>Sub Categories</h4>
+        <div id="subcategory_container">
+            @foreach (eLocal.Models.Category cat in category.sub_categories) {
+                <a href="@Url.Content("~/Category/ByName?cat_name=" + cat.catTitle)" title="@cat.catTitle" class="category_box">
+                    <div class="image_box">
+                        <img src="@cat.image" alt="@cat.catTitle" />
+                    </div>
+                    <span class="cat_title">@cat.catTitle</span>
+                </a>
+            }
+        </div>
+    }
+</div>

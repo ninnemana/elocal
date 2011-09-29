@@ -1,0 +1,8 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    int result_count = ViewBag.result_count;
+    string term = ViewBag.term;
+}
+
+<span>Your search for "@term" returned @result_count results.</span>

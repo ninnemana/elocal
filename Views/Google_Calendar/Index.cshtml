@@ -1,0 +1,142 @@
+﻿@using Google.GData.Calendar;
+@using Google.GData.Client;
+@{
+    ViewBag.Title = "Google Calendar Testing";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    AtomEntry entry = ViewBag.googlecal_entry;
+}
+
+<style type="text/css">
+    #calendar_actions{
+        list-style: none;
+        margin:0px;
+        padding: 0px;
+    }
+    
+    #calendar_actions li{
+        display: inline-block;
+    }
+    
+    #calendar_actions li a{
+        display: inline-block;
+        height: 40px;
+        background: #ccc;
+        line-height: 40px;
+        text-align: center;
+        font-weight: bold;
+        font-size: 12pt;
+        width: 115px;
+        cursor: pointer;
+        color:Black;
+        text-decoration: none;
+    }
+    
+    #calendar_actions li a:hover, #calendar_actions li a.active{
+        background: #999;
+    }
+    
+    .cal_action{
+        width: 90%;
+        border: 1px solid #999;
+        padding: 15px;
+        min-height: 100px;
+        display: none;
+        margin-bottom: 35px;
+    }
+</style>
+
+@if (entry != null) {
+    <img src="@Url.Content("~/Google_Calendar/Index?img=blankimage.png")" style="position:absolute;top:-1000px" />
+    <ul id="calendar_actions">
+        <li><a href="#add" class="tab">Add Entry</a></li>
+        <li><a href="#edit" class="tab">Edit Entry</a></li>
+        <li><a href="#delete" class="tab">Delete Entry</a></li>
+    </ul>
+    <div id="add" class="cal_action">
+        <p>Add</p>
+    </div>
+    <div id="edit" class="cal_action">
+        <p>Edit</p>
+    </div>
+    <div id="delete" class="cal_action">
+        <p>Delete</p>
+    </div>
+    <div id="calendar-container"></div>
+    <!--iframe src="https://www.google.com/calendar/embed?src=entry.Authors[0].Email&ctz=America/Chicago" style="border: 0" width="800" height="600" frameborder="0" scrolling="no"></iframe-->
+} else {
+    
+    <h3>Appointment Calendar</h3>
+    <p>We're sorry, our calendar is unavailable at this time. Please check back later.</p>
+}
+
+<script src="http://www.google.com/jsapi?key=ABQIAAAAp7doBy2ERdW592PKG_FObhSrvhjzeNPwIuOw4du7FJJJfT0QkRQLkQ3WynVEJrvw7f6oXv-Zm7PH5A" type="text/javascript"></script>
+<script type="text/javascript">
+    google.load("gdata", "1");
+    google.setOnLoadCallback(main);
+    var calendarService = "";
+    var feedUri = "http://www.google.com/calendar/feeds/ninnemana@gmail.com/private/full";
+
+    function main() {
+
+        var scope = 'http://www.google.com/calendar/feeds/ninnemana@gmail.com/private/full';
+
+        if (!google.accounts.user.checkLogin(scope)) {
+            var loginButton = $("<button>Click here to login</button>");
+            loginButton.click(function () {
+                var token = google.accounts.user.login(scope); // can ignore returned token  
+            });
+            $("#calendar-container").append(loginButton);
+        } else {
+
+            calendarService = new google.gdata.calendar.CalendarService("ninnemana-eLocal-1.0");
+
+            calendarService.getAllCalendarsFeed(feedUri, callback, handleError);
+        }
+    }
+
+    function addEvent() {
+        calendarService = new google.gdata.calendar.CalendarService("ninnemana-eLocal-1.0");
+        var entry = new google.gdata.calendar.CalendarEventEntry();
+        entry.setTitle(google.gdata.Text.create('JS-Client: insert event'));
+
+        var when = new google.gdata.When();
+        var startTime = google.gdata.DateTime.fromIso8601("2011-04-15T09:00:00.00-08:00");
+        var endTime = google.gdata.DateTime.fromIso8601("2011-04-15T10:00:00.00-08:00");
+        when.setStartTime(startTime);
+        when.setEndTime(endTime);
+
+        entry.addTime(when);
+
+        calendarService.insertEntry(feedUri, entry, callback, handleError, google.gdata.calendar.CalendarEventEntry);
+
+    }
+
+    var callback = function (result) {
+        var html = "<iframe src='https://www.google.com/calendar/embed?src=" + result.feed.author[0].email.$t + "&ctz=America/Chicago' style='border: 0' width='800' height='600' frameborder='0' scrolling='no'></iframe>";
+        $('#calendar-container').append(html);
+    }
+
+    var handleError = function (error) {
+        console.log(error);
+    }
+
+    $(document).ready(function () {
+
+        $('.tab').live('click', function () {
+
+            var loc = $(this).attr('href');
+
+            $('.cal_action').hide();
+
+            $('#calendar_actions li a').removeClass('active');
+
+            $(this).addClass('active');
+
+            $(loc).slideDown();
+
+
+
+        });
+
+    });
+</script>

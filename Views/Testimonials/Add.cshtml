@@ -1,0 +1,75 @@
+﻿@{
+    ViewBag.Title = "Add";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="/Content/testimonial.css" rel="stylesheet" type="text/css" />
+
+<h2>Add Testimonial</h2>
+
+@if (ViewBag.msg != null && ViewBag.msg.Length > 0) {
+    <p class="error">@ViewBag.msg</p>
+}
+
+<form method="post" action="/Testimonials/Save" id="test_form">
+    <label for="reviewer">
+        <input type="text" name="reviewer" id="reviewer" placeholder="Enter your name" value="@ViewBag.reviewer" />
+        <span class="message">If left blank, will be marked anonymous</span>
+    </label><br />
+
+    <label for="review">
+        <textarea name="review" id="review" rows="6" cols="20" placeholder="Enter your testimonial">@ViewBag.review</textarea>
+        <span class="message">* Required</span>
+    </label><br />
+
+    <div class="buttons">
+        <input type="submit" name="btnSubmit" id="btnSubmit" value="Submit" />
+    </div>
+</form>
+
+
+<script type="text/javascript">
+    $(function () {
+        $('#btnSubmit').click(function () {
+            var review = $('#review').val();
+            if ($.trim(review).length == 0) {
+                $('#review').parent().find('.message').fadeOut(500, function () {
+                    $('#review').parent().find('.message').css('color', 'red').css('font-size', '14px');
+                    $('#review').parent().find('.message').fadeIn();
+                    if (supports('box-shadow')) {
+                        $('#review').addClass('webkit_required');
+                    } else {
+                        $('#review').addClass('required');
+                    }
+                    $('#review').focus();
+                });
+                return false;
+            }
+        });
+
+        var supports = (function () {
+            var div = document.createElement('div'),
+            vendors = 'Khtml Ms O Moz Webkit'.split(' '),
+            len = vendors.length;
+
+            return function (prop) {
+                if (prop in div.style) return true;
+
+                prop = prop.replace(/^[a-z]/, function (val) {
+                    return val.toUpperCase();
+                });
+
+                while (len--) {
+                    if (vendors[len] + prop in div.style) {
+                        // browser supports box-shadow. Do what you need.
+                        // Or use a bang (!) to test if the browser doesn't.
+                        return true;
+                    }
+                }
+                return false;
+            };
+        })();
+
+
+
+    });
+</script>

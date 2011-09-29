@@ -1,0 +1,39 @@
+﻿@using eLocal.Models;
+@{
+    ViewBag.Title = "Related";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    APIPart part = ViewBag.part;
+    List<APIPart> related_parts = ViewBag.related_parts;
+}
+<link rel="Stylesheet" media="all" href="@Url.Content("~/Content/part_results.css")" type="text/css" />
+
+<!-- Display the searched vehicle string -->
+<h4 style="margin-top: 0px; border-bottom: 1px solid #343434">@part.shortDesc Related Parts</h4>
+
+
+<!-- Product Results -->
+<div class="horizontal_tab_container">
+            <div class="horizontal_tab_content">
+                <div class="part_tools">
+                    <span class="part_count">( @related_parts.Count ) Related Parts</span>
+
+                    <form action="@Url.Content("~/Related/"+part.partID)" method="POST" id="sort_form">
+                        <label class="sorting_options">
+                            Sort Results: 
+                            <select id="sort" name="sort">
+                                <option value="">Part #</option>
+                                <option value="low_price">Price: Low to High</option>
+                                <option value="high_price">Price: High to Low</option>
+                            </select>
+                            <input type="submit" name="do_sort" id="do_sort" value="Sort" />
+                        </label>
+                    </form>
+                </div>
+                    @foreach(eLocal.Models.APIPart related_part in related_parts){
+                        ViewBag.part = related_part;
+                        Html.RenderPartial("PartListing");
+                    }
+            </div>
+</div>
+<!-- End Product Results -->
+<script type="text/javascript" src="@Url.Content("~/Scripts/custom/tabs.js")"></script>

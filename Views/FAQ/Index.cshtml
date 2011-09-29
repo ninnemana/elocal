@@ -1,0 +1,16 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    List<eLocal.FAQ> faqs = ViewBag.faqs;
+}
+<link href="../../Content/faq.css" rel="stylesheet" type="text/css" />
+<h2>Frequently Asked Questions</h2>
+<hr />
+
+@foreach (eLocal.FAQ faq in faqs) {
+    <div class="faq">
+        <span class="question">@faq.question</span>
+        <span class="answer">@faq.answer</span>
+    </div>
+}
+<script src="../../Scripts/custom/faq.js" type="text/javascript"></script>

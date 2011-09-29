@@ -1,0 +1,212 @@
+﻿.horizontal_tab_container{
+    border:none;
+}
+
+.part_tools{
+    min-height: 20px;
+    padding: 0px;
+}
+
+.part_tools .top_tools, .part_tools .bottom_tools{
+    clear: both;
+    padding: 4px;
+}
+
+.part_tools .top_tools{
+    height: 35px;
+    border-top-left-radius: 4px;
+    background: #343434;
+    background: -moz-linear-gradient(19% 75% 90deg,#212020, #343434);
+    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#343434), to(#212020));
+    -moz-border-radius-topright: 4px;
+    -moz-border-radius-topleft: 4px;
+    border-top-right-radius: 4px;
+}
+
+.part_tools .bottom_tools{
+    height: 20px;
+    background: #ccc;
+    background: -moz-linear-gradient(19% 75% 90deg,#ccc, #999);
+    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#999), to(#ccc));
+    -moz-border-radius-bottomleft:4px;
+    -moz-border-radius-bottomright:4px;
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+}
+
+.part_tools .part_count{
+    float:left;
+    line-height: 35px;
+    font-size: 10pt;
+    color: White;
+    padding-left:4px;
+}
+
+#sort_form{
+    float:right;
+    height: 35px;
+    line-height: 35px;
+    padding-right: 4px;
+}
+
+#sort_form label{
+    color: White;
+    line-height: 20px;
+}
+
+.part_listing{
+    border-bottom: 1px solid #343434;
+    padding-bottom: 10px;
+    min-height: 260px;
+}
+
+.part_listing:last-child{
+    border-bottom: none;
+}
+
+.part_listing .part_title p{
+    margin-top: 5px;
+    padding: 0px;
+    font-size: 12pt;
+    float:left;
+    padding-left: 15px;
+}
+
+.part_listing .part_title .part_number{
+    float:right;
+    font-size: 10pt;
+    margin-right: 5%;
+}
+
+.part_listing .part_media{
+    width: 40%;
+    margin-left: 10px;
+    float:left;
+    text-align:center;
+    margin-right: 10px;
+    clear:left;
+}
+
+.part_listing .part_media .main_img_link{
+    width:90%;
+    height: 140px;
+    border: 1px solid black;
+    margin:auto;
+    cursor: pointer;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.part_listing .part_media .main_img{
+    width: 100%;
+    height: 140px;
+}
+
+.part_listing .part_media .alt_img_holder{
+    width: 100%;
+}
+
+.part_listing .part_media .alt_img_holder a{
+    text-decoration: none;
+}
+
+.part_listing .part_media .alt_img_holder img{
+    width: 23%;
+    border: 1px solid black;
+    cursor: pointer;
+    height: 42px;
+}
+
+.part_listing .part_content{
+    float:left;
+    width: 35%;
+}
+
+.part_listing .part_content p{
+    font-size: 9pt;
+    margin-top: 0px;
+}
+
+.part_listing .part_links{
+    float:right;
+    width: 20%;
+    margin-right: 5px;
+}
+
+.part_listing .part_links .product{
+    border: 2px solid #e6e6e6;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    text-align: center;
+    padding:5px;
+    margin: 10px 0px;
+}
+
+.part_listing .part_links .product .product-price{
+    color: Red;
+}
+
+.part_listing .part_links .product .googlecart-add-button{
+    margin:auto;
+}
+
+.part_listing .part_links a{
+    font-size: 9pt;
+    color: black;
+    text-decoration: none;
+}
+
+.part_listing .part_links a img{
+    width: 20px;
+    vertical-align: middle;
+}
+
+.part_listing .part_links a span:hover, .part_listing .part_links a:hover{
+    text-decoration: underline;
+}
+
+.part_listing .part_links .price_box{
+    background: #343434;
+    -moz-border-radius: 6px 6px 6px;
+    border-radius: 6px 6px 6px;
+    border: 1px inset #424242;
+    min-height: 50px;
+    width: 90%;
+    text-align: center;
+    padding: 2%;
+    margin:auto;
+    margin-top: 15px;
+}
+
+.part_listing .part_links .call_pricing{
+    color: #343434;
+    font-size: 11pt;
+    background: #ff8100;
+    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#ff8100), to(#a65400), color-stop(.3,#bf7830));
+    background: -moz-linear-gradient(19% 75% 90deg,#ff8100, #a65400, #bf7830 30%);
+    -moz-border-radius: 6px;
+    border-radius: 6px 6px 6px;
+    padding: 2%;
+    width: 92%;
+    display: block;
+    cursor: pointer;
+    border: 1px solid #a65400;
+    margin:auto;
+}
+
+.part_listing .part_links .call_pricing:hover{
+    background: #ea7500;
+    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#ea7500), to(#b55b01), color-stop(.3,#bf7830));
+    background: -moz-linear-gradient(19% 75% 90deg,#ea7500, #b55b01, #bf7830 30%);
+    border: 1px inset #424242;
+}
+
+.part_listing .part_links .phone{
+    font-size: 8pt;
+    color: white;
+}
+
+.part_listing .part_links .product .product_price{
+    display: block;
+    font-size: 18px;
+}

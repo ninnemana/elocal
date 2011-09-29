@@ -1,0 +1,15 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    List<eLocal.Service> services = ViewBag.services;
+}
+<link href="/Content/services.css" rel="stylesheet" type="text/css" />
+@foreach (eLocal.Service serv in services) {
+    <div class="service">
+        <span class="title">@serv.service_title</span>
+        <span class="price">@(String.Format("{0:C}",serv.service_price))@((serv.hourly == 1)?"/hr":"")</span>
+        <div style="clear:both"></div>
+        <p>@serv.description</p>
+        <a href="/Locator" title="View Locations">Find a Location</a>
+    </div>
+}

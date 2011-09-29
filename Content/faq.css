@@ -1,0 +1,19 @@
+﻿.faq{
+    
+}
+
+.question{
+    font-size: 18px;
+    font-weight: bold;
+    display: block;
+    text-decoration: underline;
+    cursor: pointer;
+    padding-top: 15px;
+}
+
+.answer{
+    font-size: 14px;
+    display: block;
+    padding: 10px 0px 10px 5%;
+    border-bottom: 1px solid #e6e6e6;
+}
