@@ -1,0 +1,20 @@
+
+<html>
+<head>
+    <link href="@Url.Content("~/Content/css/email.css")" media="all" rel="Stylesheet" />
+    <link href='http://fonts.googleapis.com/css?family=Cantarell:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+    <style type="text/css">
+        p{
+            font-family: 'Cantarell',arial,sans;
+        }
+    </style>
+</head>
+<body>
+    <p>@(ViewBag.name),</p>
+
+    <p>Thank you for contacting us. This is automated response to let you know that we recieved your contact information. Someone will get back to you as soon as we can.</p>
+    <br />
+    <p>Thank you,</p>
+    <p>@System.Configuration.ConfigurationManager.AppSettings["site_name"]</p>
+</body>
+</html>

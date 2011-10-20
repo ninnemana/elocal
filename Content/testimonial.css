@@ -1,0 +1,211 @@
+﻿h2
+{
+    float:left;
+    margin:0px;
+}
+
+#add_testimonial
+{
+    float:right;
+}
+
+#add_testimonial button{
+    cursor: pointer;
+    color: #fff;
+    font-weight: bold;
+    font-size: 10pt;
+    padding: 10px;
+    width: 180px;
+    margin-left: 260px;
+ 
+    text-shadow: 0px 1px 2px #000;
+ 
+    -webkit-box-shadow: -1px -1px 0px #4bc824, 1px 1px 0px #000;
+    -moz-box-shadow: -1px -1px 0px #4bc824, 1px 1px 0px #000;
+    -o-box-shadow: -1px -1px 0px #4bc824, 1px 1px 0px #000;
+    box-shadow: -1px -1px 0px #4bc824, 1px 1px 0px #000;
+    
+    background: #205f0d;
+    background: -webkit-gradient(linear, left top, left bottom, from(#369a18), to(#205f0d));
+    background: -moz-linear-gradient(top,  #369a18,  #205f0d);
+    
+    border: none;
+    border-radius: 10px;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -o-border-radius:10px;
+}
+
+#add_testimonial button:hover{
+    background: #205f0d;
+    background: -webkit-gradient(linear, left top, left bottom, from(#46b725), to(#205f0d));
+    background: -moz-linear-gradient(top,  #205f0d,  #46b725);
+}
+
+#add_testimonial button:active{
+    -webkit-box-shadow: -1px -1px 0px #000;
+    -moz-box-shadow: -1px -1px 0px #000;
+    -o-box-shadow: -1px -1px 0px #000;
+    box-shadow: -1px -1px 0px #000;
+    
+    background: #205f0d;
+    background: -webkit-gradient(linear, left top, left bottom, from(#46b725), to(#205f0d));
+    background: -moz-linear-gradient(top,  #46b725,  #205f0d);
+}
+
+.testimonial{
+    min-height: 125px;
+    padding: 15px 10px;
+    width: 100%;
+    clear:both;
+    border-bottom: 2px inset #e6e6e6;
+}
+
+.testimonial p{
+    font-family: 'Shadows Into Light', Cursive;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.testimonial .reviewer, .testimonial .date
+{
+    display: block;
+    font-size: 18px;
+    font-family: 'Shadows Into Light', Cursive;
+}
+
+.testimonial .date
+{
+    font-size: 14px;
+}
+
+#test_form{
+    width: 90%;
+    margin:auto;
+ 
+    padding: 20px;
+    background: #343434;
+    background: -webkit-gradient(linear, left top, left bottom, from(#343434), to(#282828));
+    background: -moz-linear-gradient(top,  #343434,  #282828);
+    
+    -webkit-box-shadow: 2px 2px 2px #ccc;
+    -moz-box-shadow: 2px 2px 2px #ccc;
+    -o-box-shadow: 2px 2px 2px #ccc;
+    box-shadow: 2px 2px 2px #ccc;
+ 
+    border: 1px #282828 solid;
+    clear:both;
+    margin-bottom: 30px;
+    float:left;
+}
+
+#test_form label{
+    height: 60px;
+    min-width: 340px;
+    padding: 5px;
+    clear:both;
+    display: block;
+    color: White;
+    font-size: 14pt;
+    position: relative;
+}
+
+#test_form .message{
+    color: White;
+    font-weight:bold;
+    font-size: 11px;
+    line-height: 20px;
+    display: block;
+    clear:both;
+}
+
+#test_form label input,#test_form label textarea{ 
+    width: 350px; 
+    font-size: 12px;
+}
+
+#test_form p{
+    color: White;
+    font-size: 10pt;
+    font-weight: 600;
+}
+
+#test_form label input, #test_form textarea, #test_form select{
+    font-size: 16px;
+    padding: 20px;
+    border: none;
+    border-radius: 4px;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    -o-border-radius: 4px;
+    text-shadow: 1px 1px 0px #fff;
+    
+    -webkit-box-shadow: -1px -1px 0px #000;
+    -moz-box-shadow: -1px -1px 0px #000;
+    -o-box-shadow: -1px -1px 0px #000;
+    box-shadow: -1px -1px 0px #000;
+    
+    background: #efefef;
+    background: -webkit-gradient(linear, left top, left bottom, from(#ffffff), to(#efefef));
+    background: -moz-linear-gradient(top,  #ffffff,  #efefef);
+    display: block;
+    outline: none;
+    float:left;
+}
+
+#test_form label .required{
+    border: 2px solid #e44f31;
+}
+
+
+#test_form label .webkit_required
+{
+    -moz-box-shadow:inset 0 0 20px #aa0303;
+   -webkit-box-shadow:inset 0 0 20px #aa0303;
+   box-shadow:inset 0 0 20px #aa0303;
+}
+
+#test_form input[type=submit]{
+    cursor: pointer;
+    color: #fff;
+    font-weight: bold;
+    font-size: 16pt;
+    padding: 20px;
+    width: 140px;
+    margin-left: 260px;
+ 
+    text-shadow: 0px 1px 2px #000;
+ 
+    -webkit-box-shadow: -1px -1px 0px #4bc824, 1px 1px 0px #000;
+    -moz-box-shadow: -1px -1px 0px #4bc824, 1px 1px 0px #000;
+    -o-box-shadow: -1px -1px 0px #4bc824, 1px 1px 0px #000;
+    box-shadow: -1px -1px 0px #4bc824, 1px 1px 0px #000;
+    
+    background: #205f0d;
+    background: -webkit-gradient(linear, left top, left bottom, from(#369a18), to(#205f0d));
+    background: -moz-linear-gradient(top,  #369a18,  #205f0d);
+    
+    border: none;
+    border-radius: 10px;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -o-border-radius:10px;
+    margin-top: 10px;
+}
+
+#test_form input[type=submit]:hover{
+    background: #205f0d;
+    background: -webkit-gradient(linear, left top, left bottom, from(#46b725), to(#205f0d));
+    background: -moz-linear-gradient(top,  #205f0d,  #46b725);
+}
+
+#test_form input[type=submit]:active{
+    -webkit-box-shadow: -1px -1px 0px #000;
+    -moz-box-shadow: -1px -1px 0px #000;
+    -o-box-shadow: -1px -1px 0px #000;
+    box-shadow: -1px -1px 0px #000;
+    
+    background: #205f0d;
+    background: -webkit-gradient(linear, left top, left bottom, from(#46b725), to(#205f0d));
+    background: -moz-linear-gradient(top,  #46b725,  #205f0d);
+}

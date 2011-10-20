@@ -1,0 +1,180 @@
+﻿@using eLocal.Models;
+@{
+    List<string> classes = ViewBag.classes;
+    string current_class = ViewBag.first_class;
+    eLocal.Company company = ViewBag.company;
+    List<Dictionary<string, List<APIPart>>> ordered_parts = ViewBag.ordered_parts;
+    List<APIPart> other_parts = ViewBag.other_parts;
+
+    if (company == null) {
+        company = new eLocal.Company();
+    }
+    string twitter_handle = "";
+    if(company.twitter_link != null && company.twitter_link.Length > 0){
+        string[] twitter_segments = company.twitter_link.Split('/');
+        twitter_handle = twitter_segments[twitter_segments.Length - 1];
+    }
+}
+<link rel="Stylesheet" media="all" href="@Url.Content("~/Content/part_results.css")" type="text/css" />
+@if (classes.Count > 0 && classes[0] != "Other") {
+    <!-- Product Class Tabs -->
+    <ul class="horizontal_tabs">
+        @foreach (string pClass in classes) {
+            <li><a href="#@pClass.Replace(" ", "")">@pClass</a></li>
+        }
+    </ul>
+}
+
+<!-- Product Results -->
+<div class="horizontal_tab_container">
+    @foreach (Dictionary<string, List<eLocal.Models.APIPart>> part_listing in ordered_parts) {
+        foreach (KeyValuePair<string, List<eLocal.Models.APIPart>> part_group in part_listing) {
+            <div class="horizontal_tab_content" id="@part_group.Key.Replace(" ", "")">
+                <div class="part_tools">
+                    <div class="top_tools">
+                        <span class="part_count">@part_group.Key Results ( @part_group.Value.Count )</span>
+
+                        <form action="@Url.Content("~/FindHitch")" method="post" id="sort_form">
+                            <label class="sorting_options">
+                                Sort Results: 
+                                <select id="sort" name="sort">
+                                    <option value="">Part #</option>
+                                    <option value="low_price">Price: Low to High</option>
+                                    <option value="high_price">Price: High to Low</option>
+                                </select>
+                                <input type="submit" name="do_sort" id="do_sort" value="Sort" />
+                                <input type="hidden" name="select_year" id="select_year" value="@ViewBag.year" />
+                                <input type="hidden" name="select_make" id="select_make" value="@ViewBag.make" />
+                                <input type="hidden" name="select_model" id="select_model" value="@ViewBag.model" />
+                                <input type="hidden" name="select_style" id="select_style" value="@ViewBag.style" />
+                            </label>
+                        </form>
+                    </div>
+                    <div class="bottom_tools"></div>
+                </div>
+                    @foreach (eLocal.Models.APIPart part in part_group.Value) {
+                        List<string> bullets = (from p in part.content
+                                                where p.key.Equals("Bullet")
+                                                select p.value).ToList<string>();
+                        
+                        <div class="part_listing product">
+                            <div class="part_title">
+                                <p>@part.shortDesc@((part.pClass.Length > 0) ? " - " + part.pClass : "")</p>
+                                <p class="part_number"><strong>Part #</strong>@part.partID</p>
+                            </div>
+                            <div class="part_media">
+                                <a href="http://graphics.curthitch.biz/masterlibrary/@part.partID/images/@(part.partID)_300x225_a.jpg" title="CURT Part #@part.partID Image 1" class="main_img_link">
+                                    <img src="http://graphics.curthitch.biz/masterlibrary/@part.partID/images/@(part.partID)_300x225_a.jpg" alt="CURT Part #@part.partID" class="main_img" />
+                                </a>
+                                <div class="alt_img_holder">
+                                    <div style="margin:auto">
+                                        <a href="http://graphics.curthitch.biz/masterlibrary/@part.partID/images/@(part.partID)_300x225_b.jpg" target="_blank" title="CURT Part #@part.partID Image 2">
+                                            <img src="http://graphics.curthitch.biz/masterlibrary/@part.partID/images/@(part.partID)_300x225_b.jpg" class="alt_img product-image" onerror="jQuery(this).parent().remove()" alt="CURT Part #@part.partID Image 2" />
+                                        </a>
+                                        <a href="http://graphics.curthitch.biz/masterlibrary/@part.partID/images/@(part.partID)_300x225_c.jpg" target="_blank"  title="CURT Part #@part.partID Image 3">
+                                            <img src="http://graphics.curthitch.biz/masterlibrary/@part.partID/images/@(part.partID)_300x225_c.jpg" class="alt_img" onerror="jQuery(this).parent().remove()" alt="CURT Part #@part.partID Image 3" />
+                                        </a>
+                                        <a href="http://graphics.curthitch.biz/masterlibrary/@part.partID/images/@(part.partID)_300x225_d.jpg" target="_blank" title="CURT Part #@part.partID Image 4">
+                                            <img src="http://graphics.curthitch.biz/masterlibrary/@part.partID/images/@(part.partID)_300x225_d.jpg" class="alt_img" onerror="jQuery(this).parent().remove()" alt="CURT Part #@part.partID Image 4" />
+                                        </a>
+                                        <a href="http://graphics.curthitch.biz/masterlibrary/@part.partID/images/@(part.partID)_300x225_e.jpg" target="_blank" title="CURT Part #@part.partID Image 5">
+                                            <img src="http://graphics.curthitch.biz/masterlibrary/@part.partID/images/@(part.partID)_300x225_e.jpg" class="alt_img" onerror="jQuery(this).parent().remove()" alt="CURT Part #@part.partID Image 5" />
+                                        </a>
+                                    </div>
+                                </div>
+                                <!-- Share Buttons -->
+                                <div class="share_buttons">
+                                    <a name="fb_share" class="fb_share" type="button" share_url="@(Request.Url.Scheme + "://" + Request.Url.Host + "/Parts/"+@part.partID)"></a>
+                                    @if (twitter_handle.Length > 0) {
+                                        <a href="https://twitter.com/share?via=@twitter_handle&text=@part.shortDesc&url=@(Request.Url.Scheme + "://" + Request.Url.Host + "/Parts/"+@part.partID)" class="twitter-share-button" data-count="none">Tweet</a>
+                                    } else {
+                                        <a href="https://twitter.com/share?text=@part.shortDesc&url=@(Request.Url.Scheme + "://" + Request.Url.Host + "/Parts/"+@part.partID)" class="twitter-share-button" data-count="none">Tweet</a>
+                                    }
+                                    <div data-annotation="none" class="g-plusone" style="vertical-align:top !important" data-size="medium" data-href="@(Request.Url.Scheme + "://" + Request.Url.Host + "/Parts/"+@part.partID)" style="vertical-align:top"></div>
+                                </div>
+                            </div>
+                            <div class="part_content">
+                                @if (bullets.Count > 0) {
+                                    foreach (string bull in bullets) {
+                                        <p>@bull</p>
+                                    }
+                                } else {
+                                    foreach (eLocal.Models.APIAttribute att in part.attributes) {
+                                        if (att.value.Length > 0) {
+                                            <p><strong>@(att.key):</strong> @att.value</p>   
+                                        }
+                                    }
+                                }
+                            </div>
+                            <div class="part_links">
+                                <!-- Check if the Instruction Sheet exists -->
+                                @{
+                                string url = "http://graphics.curthitch.biz/masterlibrary/" + part.partID + "/installsheet/CM_" + part.partID + "_INS.pdf";
+                                if (eLocal.Models.APIModels.FileExists(url)) { 
+                                        <a href="@url" target="_blank" title="Instruction sheet CURT #@part.partID">
+                                            <img src="@Url.Content("~/Content/img/pdf_icon.png")" alt="Instruction Sheet CURT #@(part.partID) PDF" />
+                                            <span>Instruction Sheet</span>
+                                        </a>
+                                }
+                                if (part.relatedCount > 0) {
+                                        <!-- View Related Products -->
+                                        <a style="margin-left: 20px" href="@Url.Content("~/Related/" + @part.partID)" title="Related Parts for CURT #@part.partID">Related Parts</a>
+                                }
+                                }
+
+                                @switch (company.merchant_provider) {
+                                    case "google": // Load Google Checkout
+                                        <script id="googlecart-script" type="text/javascript" src="https://checkout.google.com/seller/gsc/v2_2/cart.js?mid=@company.merchant_id" integration="jscart-wizard" post-cart-to-sandbox="false"></script>
+                                        <div class="product">
+                                            <img class="product-image" style="display:none" src="http://graphics.curthitch.biz/masterlibrary/@(part.partID)/images/@(part.partID)_300x225_a.jpg" alt="Part #@(part.partID)" />
+                                            <input type="hidden" class="product-title" value="@part.shortDesc" />
+                                            <span class="product-price">@part.listPrice</span>
+                                            <div class="googlecart-add-button" tabindex="0" role="button" title="Add to Cart"></div>
+                                        </div>
+                                    break;
+
+                                    case "paypal": // Load PayPal Checkout
+                                        <div class="product">
+                                            <span class="product-price">@part.listPrice</span>    
+                                            <form target="paypal" action="https://www.paypal.com/cgi-bin/webscr" method="post">
+                                                <input type="hidden" name="cmd" value="_cart" />
+                                                <input type="hidden" name="business" value="@company.merchant_id" />
+                                                <input type="hidden" name="lc" value="US" />
+                                                <input type="hidden" name="item_name" value="@Html.Encode(part.shortDesc)" />
+                                                <input type="hidden" name="amount" value="@part.listPrice" />
+                                                <input type="hidden" name="currency_code" value="USD" />
+                                                <input type="hidden" name="button_subtype" value="products" />
+                                                <input type="hidden" name="no_note" value="0" />
+                                                <input type="hidden" name="add" value="1" />
+                                                <input type="hidden" name="bn" value="PP-ShopCartBF:btn_cart_LG.gif:NonHostedGuest" />
+                                                <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_cart_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!" />
+                                                <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1" />
+                                            </form>
+                                        </div>
+
+                                    break;
+
+                                    case "Custom": // Load custom merchant account
+                                        <span>@part.listPrice</span>
+                                         break;
+
+                                    default: // DO NOTHING
+                                    <div class="price_box">
+                                        <span class="call_pricing">Call for Pricing</span>
+                                        <span class="phone">@System.Configuration.ConfigurationManager.AppSettings["phone_number"]</span>
+                                    </div>
+                                        
+                                                       break;
+                                }
+                                <a href="/Parts/@part.partID" title="View Details">View Details >>></a>
+                            </div>
+                            <div style="clear:both"></div>
+                        </div>
+                    }
+            </div>
+        }
+    }
+</div>
+<!-- End Product Results -->
+
+<script type="text/javascript" src="@Url.Content("~/Scripts/custom/tabs.js")"></script>

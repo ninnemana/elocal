@@ -1,0 +1,66 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    List<eLocal.Models.SearchResult> results = ViewBag.results;
+    results = (results == null) ? new List<eLocal.Models.SearchResult>() : results;
+
+    int result_count = ViewBag.result_count;
+    eLocal.Company company = ViewBag.company;
+    if (company == null) {
+        company = new eLocal.Company();
+    }
+    string twitter_handle = "";
+    if(company.twitter_link != null && company.twitter_link.Length > 0){
+        string[] twitter_segments = company.twitter_link.Split('/');
+        twitter_handle = twitter_segments[twitter_segments.Length - 1];
+    }
+    
+}
+<link href="/Content/search.css" rel="stylesheet" type="text/css" />
+<p id="result_summary">You're search returned ( @result_count ) results. Displaying @((ViewBag.skip_count == 0)?1:ViewBag.skip_count)  - @(ViewBag.skip_count + results.Count) of @result_count </p>
+<p id="display_term">Displaying results for @ViewBag.term</p>
+
+
+@foreach (eLocal.Models.SearchResult result in results) {
+    <div class="search_result">
+        <a href="@result.link" title="@result.short_desc" class="short_desc">@result.short_desc</a>
+        <span>@(Request.Url.Host + result.link)</span>
+        <p>@foreach (string desc in result.descriptions) { @(desc + " ") }</p>
+
+        <!-- Share Buttons -->
+        <a name="fb_share" class="fb_share" type="button" share_url="@(Request.Url.Scheme + "://" + Request.Url.Host + result.link)"></a>
+        @if (twitter_handle.Length > 0) {
+            <a href="https://twitter.com/share?via=@twitter_handle&text=@result.short_desc&url=@(Request.Url.Scheme + "://" + Request.Url.Host + result.link)" class="twitter-share-button" data-count="none">Tweet</a>
+        } else {
+            <a href="https://twitter.com/share?text=@result.short_desc&url=@(Request.Url.Scheme + "://" + Request.Url.Host + result.link)" class="twitter-share-button" data-count="none">Tweet</a>
+        }
+        <div data-annotation="none" class="g-plusone" data-size="medium" data-href="@(Request.Url.Scheme + "://"+Request.Url.Host + result.link)" style="vertical-align:top"></div>
+    </div>
+}
+
+@if (result_count > 25) { // Display paging
+    double pages = Math.Ceiling(result_count / 25.0);
+    <ul id="paging">
+        @if (ViewBag.current_page > 1) {
+            <li>
+                <a href="/Search/@ViewBag.term/@(ViewBag.current_page - 1)">Previous</a>
+            </li>
+        }
+        @for (int i = 1; i < pages + 1; i++) {
+            if (ViewBag.current_page == i) {
+                <li>
+                    <span>@i</span>
+                </li>
+            } else {
+                <li>
+                    <a href="/Search/@ViewBag.term/@i">@i</a>
+                </li>
+            }
+        }
+        @if (ViewBag.current_page != pages) {
+            <li>
+                <a href="/Search/@ViewBag.term/@(ViewBag.current_page + 1)">Next</a>
+            </li>
+        }
+    </ul>
+}

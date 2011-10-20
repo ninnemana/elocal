@@ -1,0 +1,13 @@
+﻿@using eLocal.Models;
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "";
+    eLocal.Models.Category category = ViewBag.category;
+}
+<!-- Display category title -->
+<h4 style="margin-top: 0px; border-bottom: 1px solid #343434">@category.catTitle</h4>
+<p>@category.shortDesc</p>
+
+@{
+    Html.RenderPartial("PartListing");   
+}

@@ -1,0 +1,30 @@
+﻿@using Google.GData.Client;
+@using Google.GData.Extensions;
+@using Google.GData.YouTube;
+@using Google.GData.Extensions.MediaRss;
+@using Google.YouTube;
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    Feed<Google.YouTube.Video> curt_videos = ViewBag.curt_videos;
+}
+<link href="/Content/media.css" rel="stylesheet" type="text/css" />
+<h2>CURT Videos</h2>
+
+@if (curt_videos != null) {
+    foreach (Google.YouTube.Video entry in curt_videos.Entries) {
+        <div class="curt_video">
+            <iframe src="http://youtube.com/embed/@entry.VideoId?wmode=transparent" wmode="Opaque" frameborder="0"></iframe>
+            <div class="desc">
+                <span class="title">@entry.Title</span>
+                <p>@entry.Description</p>
+                <div>
+                    <span>by <a href="http://www.youtube.com/@entry.Author" target="_blank">@entry.Author</a></span>
+                    <span>@entry.ViewCount views</span>
+                    <span>Average Rating @Math.Round(entry.RatingAverage, 2) / 5</span>
+                </div>
+            </div>
+            <div style="clear:both"></div>
+        </div>
+    }
+}

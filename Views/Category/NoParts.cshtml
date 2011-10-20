@@ -1,0 +1,14 @@
+﻿@{
+    ViewBag.Title = "NoParts";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    eLocal.Models.Category category = ViewBag.category;
+}
+
+<h2>@category.catTitle</h2>
+
+<img src="@category.image" alt="@category.catTitle" />
+
+<p>What's the point of having this category then? RIDICULOUS!</p>
+
+<p>This category doesn't have any parts associated with it. We're working on updating the listing and we should have this fixed up real soon.</p>
+

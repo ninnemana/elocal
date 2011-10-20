@@ -1,0 +1,16 @@
+﻿@{
+    ViewBag.Title = "Thank";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Message has been delivered.</h2>
+
+<p>Thank you @ViewBag.name for contacting us. We have received your message and will contact you at @ViewBag.contact once we have a response to your message.</p>
+
+<p>Below you will find the contents of your message, so you can make sure we got everything right.</p>
+
+<div style="border:2px solid #ccc;display:inline-block;padding:5px">
+    <h3 style="border-bottom:1px solid #e6e6e6;margin-bottom:0px">@ViewBag.subject</h3>
+
+    <p>@ViewBag.message</p>
+</div>

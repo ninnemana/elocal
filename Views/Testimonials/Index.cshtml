@@ -1,0 +1,23 @@
+﻿@{
+    List<eLocal.Testimonial> tests = ViewBag.tests;
+    if(tests == null){
+        tests = new List<eLocal.Testimonial>();
+    }
+    ViewBag.Title = "Testimonials";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href='http://fonts.googleapis.com/css?family=Shadows+Into+Light' rel='stylesheet' type='text/css'>
+<link href="/Content/testimonial.css" rel="stylesheet" type="text/css" />
+
+<h2>Testimonials</h2>
+<a href="/Testimonials/Add" id="add_testimonial">
+    <button>Add Testimonial</button>
+</a>
+
+@foreach (eLocal.Testimonial test in tests) {
+    <div class="testimonial">
+        <p>@test.review</p>
+        <span class="reviewer">@test.reviewer</span>
+        <span class="date">@test.date_added.ToShortDateString()</span>
+    </div>
+}

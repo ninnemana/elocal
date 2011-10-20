@@ -1,0 +1,26 @@
+﻿header, nav, section, article, footer{ display: block; }
+
+section{
+    margin-bottom: 10px;
+}
+
+header #search_form input[type=submit]{
+    top: 5px;
+}
+
+header #search_social{
+    margin-right:2.5%;
+}
+
+.lookup_selector select{
+    width: 157px;
+}
+
+.lookup_selector select.expand{
+    width: auto;
+}
+
+#company_img{
+    max-width: 100%;
+    width:expression(this.offsetWidth);
+}

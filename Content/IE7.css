@@ -1,0 +1,45 @@
+﻿header #logo{
+    float:left;
+}
+
+header #search_form{
+    float:left;
+    margin-top: 8px;
+}
+
+header #authorized_dealer{
+    float:right;
+}
+
+header #search_social{
+    margin-right:2.5%;
+}
+
+header #search_form input[type=submit]{
+    top: -9px;
+}
+
+#hor_nav{
+    /*padding-left: 16%;*/
+}
+
+#hor_nav li{
+    float:left;
+    width: 16.66%;
+}
+
+.lookup_selector{
+    float:left;
+}
+
+section #view_content #hor_lookup a{
+    float:left;
+}
+
+.slideOutMenu{
+    margin-top:0px;
+}
+
+#hor_lookup #lookup_links{
+    float:left;
+}

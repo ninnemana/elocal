@@ -1,0 +1,87 @@
+﻿ul.horizontal_tabs {
+    margin: 0;
+    padding: 0;
+    float: left;
+    list-style: none;
+    height: 32px; /*--Set height of horizontal_tabs--*/
+    
+    
+    width: 100%;
+    padding-left: 10px;
+}
+
+ul.horizontal_tabs li {
+    float: left;
+    margin: 0;
+    padding: 0;
+    height: 31px; /*--Subtract 1px from the height of the unordered list--*/
+    line-height: 31px; /*--Vertically aligns the text within the tab--*/
+    border: 1px solid #999;
+    
+    margin-bottom: -1px; /*--Pull the list item down 1px--*/
+    overflow: hidden;
+    position: relative;
+    background: #ccc;
+    background: -moz-linear-gradient(19% 75% 90deg,#ccc, #999);
+    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#999), to(#CCC));
+    -moz-border-radius-topleft: 4px;
+    -moz-border-radius-topright: 4px;
+    border-top-left-radius: 4px; 
+    border-top-right-radius: 4px; 
+    color: white; 
+    margin-right: 2px; 
+    border-bottom: 0px;
+}
+ul.horizontal_tabs li a {
+    text-decoration: none;
+    color: white;
+    display: block;
+    font-size: 8pt;
+    padding: 0 20px;
+     /*--Gives the bevel look with a 1px white border inside the list item--*/
+    outline: none;
+}
+ul.horizontal_tabs li a:hover {
+    background: #212020;
+    background: -moz-linear-gradient(19% 75% 90deg,#212020, #333232);
+    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#333232), to(#212020));
+}
+html ul.horizontal_tabs li.active, html ul.horizontal_tabs li.active a:hover  { /*--Makes sure that the active tab does not listen to the hover properties--*/
+     /*--Makes the active tab look like it's connected with its content--*/
+    background: #212020;
+    background: -moz-linear-gradient(19% 75% 90deg,#212020, #333232);
+    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#333232), to(#212020));
+}
+
+.horizontal_tab_container {
+    border: 1px solid #999;
+    border-top: none;
+    overflow: hidden;
+    clear: both;
+    float: left; 
+    width: 100%;
+    background: #fff;
+    margin-bottom: 15px;
+    padding: 0px 5px;
+}
+
+.horizontal_tab_content .paging{
+    float:right;
+    clear:both;
+    height: 20px;
+    line-height: 20px;
+}
+
+.horizontal_tab_content .paging .tab_page{
+    color: #343434;
+    text-decoration: underline;
+    display: inline-block;
+    text-align: center;
+    margin: 0px 3px;
+    cursor:pointer;
+}
+
+.horizontal_tab_content .paging .tab_page:hover, .horizontal_tab_content .paging .tab_page.active{
+    color: #212020;
+    text-decoration: none;
+}

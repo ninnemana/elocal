@@ -1,0 +1,123 @@
+﻿@using eLocal.Models;
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    List<LocationWithState> locations = ViewBag.locations;
+    bool showLocations = true;
+    eLocal.Company company = ViewBag.company;
+    LocationWithState primary_loc = locations.Where(x => x.isPrimary == 1).FirstOrDefault<LocationWithState>();
+    if(primary_loc == null){
+        primary_loc = new LocationWithState();
+    }
+}
+<link href="@Url.Content("~/Content/contact.css")" rel="Stylesheet" media="all" />
+<!--[if lt IE 8]>
+	<style type="text/css">
+        #buttons{ margin-top: 100px; }
+    </style>
+<![endif]-->
+<div id="contact_info">
+    <h2>Contact Us</h2>
+    <div style="clear:both"></div>
+
+    <form action="@Url.Content("~/Contact/Send")" method="post" id="contact_form">
+
+        <span class="message"></span>
+
+        <br />
+        <div class="input_box">
+            <div class="sliding_label">
+                <span>Enter your full name.</span>
+            </div>
+            <label for="name">
+                <input type="text" name="name" id="name" placeholder="Enter your name." />
+            </label>
+        </div>
+
+        <div class="input_box">
+            <div class="sliding_label">
+                <span>Enter your e-mail address.</span>
+            </div>
+            <label for="email">
+                <input type="email" name="email" id="email" placeholder="Enter your e-mail address." />
+            </label>
+        </div>
+
+        <div class="input_box">
+            <div class="sliding_label">
+                <span>Enter your phone number.</span>
+            </div>
+            <label for="phone">
+                <input type="text" name="phone" id="phone" placeholder="Enter your phone number." />
+            </label>
+        </div>
+
+        @if (locations.Count > 0 || showLocations == true) {
+            <p>Please choose the location that is closest to you. This will help us make sure the correct branch recieves your request.</p>
+            <select name="location" id="location" style="padding:0px">
+                <option value="0">- Select Location -</option>
+                @foreach (LocationWithState loc in locations) {
+                    <option value="@loc.locationID">@(loc.name + " - " + loc.address + " " + loc.city + ", " + loc.state)</option>
+                }
+            </select>
+        }
+
+        <div class="input_box">
+            <div class="sliding_label">
+                <span>Enter the subject.</span>
+            </div>
+            <label for="subject">
+                <input type="text" name="subject" id="subject" placeholder="Enter the subject." />
+            </label>
+        </div>
+
+        <label for="contact_type">
+            Preferred Method of Contact:&nbsp;<br />
+            <input type="radio" name="contact_type" id="contact_type_phone" value="phone" checked="checked" />Phone&nbsp;
+            <input type="radio" name="contact_type" id="contact_type_email" value="email" />E-Mail&nbsp;
+        </label>
+
+        <div class="textarea_box">
+            <div class="sliding_label">
+                <span>Enter the body of your message.</span>
+            </div>
+            <label for="message">
+                <textarea cols="32" rows="5" name="message" id="message" placeholder="Enter the body of your message."></textarea>
+            </label>
+        </div>
+
+        <div id="buttons" style="clear:both">
+            <input type="submit" name="btnSubmit" id="btnSubmit" value="Send It!" />
+        </div>
+    </form>
+    <div id="info">
+        <div id="map_canvas"></div>
+        <div id="phone_number" style="clear:both">
+            <span class="heading">Phone: </span>
+            <span class="text"></span>
+        </div>
+        <div id="fax_number" style="clear:both">
+            <span class="heading">Fax: </span>
+            <span class="text"></span>
+        </div>
+        <div id="services" style="clear:both">
+            <h4>Services</h4>
+            <table></table>
+        </div>
+        <hr />
+        @if (primary_loc.phone != null && primary_loc.phone.Length > 0) {
+            <div class="show">
+                <span class="heading">Call Us:&nbsp;</span>
+                <span class="text">@primary_loc.phone</span>
+            </div>
+        }
+        <div class="show">
+            <span class="heading">E-Mail Us:&nbsp;</span>
+            <span class="text">@company.contact_email</span>
+        </div>
+    </div>
+    
+</div>
+<span id="locations_json" style="display:none">@ViewBag.locations_json</span>
+<script type="text/javascript" src="@Url.Content("~/Scripts/custom/contact_form.js")"></script>
+<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false&language=en"></script>

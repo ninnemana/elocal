@@ -1,0 +1,31 @@
+﻿@{
+    ViewBag.Title = "Our Videos";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    Dictionary<eLocal.Video, Google.YouTube.Video> videos = ViewBag.videos;
+    if(videos == null){
+        videos = new Dictionary<eLocal.Video, Google.YouTube.Video>();
+    }
+    
+}
+
+<link href="/Content/media.css" rel="stylesheet" type="text/css" />
+<h2>Our Videos</h2>
+
+@if (videos != null) {
+    foreach (KeyValuePair<eLocal.Video, Google.YouTube.Video> video in videos) {
+        Google.YouTube.Video entry = video.Value;
+        <div class="curt_video">
+            <iframe src="http://youtube.com/embed/@entry.VideoId?wmode=transparent" wmode="Opaque" frameborder="0"></iframe>
+            <div class="desc">
+                <span class="title">@entry.Title</span>
+                <p>@entry.Description</p>
+                <div>
+                    <span>by <a href="http://www.youtube.com/@entry.Author" target="_blank">@entry.Author</a></span>
+                    <span>@entry.ViewCount views</span>
+                    <span>Average Rating @Math.Round(entry.RatingAverage, 2) / 5</span>
+                </div>
+            </div>
+            <div style="clear:both"></div>
+        </div>
+    }
+}

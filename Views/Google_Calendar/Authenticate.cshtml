@@ -1,0 +1,12 @@
+﻿@using Google.GData.Client;
+@using Google.AccessControl;
+@{
+    ViewBag.Title = "Authenticate";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<a href="@AuthSubUtil.getRequestUrl("http://"+@HttpContext.Current.Request.Url.Host+":"+@HttpContext.Current.Request.Url.Port+"/Google_Calendar/RetrieveToken",
+                                        "https://www.google.com/calendar/feeds/default/allcalendars/full",
+                                        false,
+                                        true)">Login to your Google Account</a>
+

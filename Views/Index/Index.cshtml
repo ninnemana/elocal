@@ -1,0 +1,22 @@
+﻿@{
+    eLocal.SiteContent home_content = ViewBag.home_content;
+    ViewBag.Title = home_content.page_title;
+    ViewBag.keywords = home_content.keywords;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    eLocal.Company company = ViewBag.company;
+    if(company == null){
+        company = new eLocal.Company();
+    }
+}
+<h2>Welcome to @company.name</h2>
+
+@if(company.company_image != null && company.company_image.Length > 0){
+    <div style="margin:auto;margin-bottom:15px;text-align:center">
+        <img src="/Content/img/uploaded/@company.company_image" alt="Our Company" id="company_img" />
+    </div>
+}
+
+<div id="company_overview">
+    @Html.Raw(home_content.content_text)
+</div>
+
